@@ -3,10 +3,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 
 interface pedido{
+  id?: string;
   proveedor: string;
   prenda: string;
   color: string;
-  tamaño: string;
+  tamano: string;
   cantidad: string;
 }
 
@@ -15,31 +16,30 @@ interface pedido{
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
   title = 'sunshine';
   proveedor='';
   prenda='';
   color='';
-  tamaño='';
+  tamano='';
   cantidad='';
   pedidos: Array<pedido>=[];
-  editando: boolean=false;
+  editando: boolean = false;
   Actualizar: pedido = {
     proveedor:"",
     prenda:"",
     color:"",
-    tamaño:"",
+    tamano:"",
     cantidad:""
   };
 
   constructor(private db: AngularFirestore){
     this.db.collection("pedido").snapshotChanges().subscribe(res =>{
-      this.pedidos=res.map(doc =>{
-        return{
-          proveedor: doc.payload.doc.id, 
-          ...doc.payload.doc.data() as{}
-        } as pedido
+      this.pedidos = res.map(doc =>{
+          return{
+            id: doc.payload.doc.id,
+            ...doc.payload.doc.data() as {}
+          } as pedido
         })
       })
     }
@@ -49,15 +49,16 @@ export class AppComponent {
         proveedor: this.proveedor,
         prenda: this.prenda,
         color: this.color,
-        tamaño: this.tamaño,
+        tamano: this.tamano,
         cantidad: this.cantidad
       })
       .then(doc=> console.log(doc.id))
       .catch(error => console.log(error))
     }
 
-    eliminar(pedidos: pedido){
-      this.db.collection("pedido").doc(pedidos.proveedor).delete()
+    eliminar(pedido: pedido){
+      console.log(pedido.id);
+      this.db.collection("pedido").doc(pedido.id).delete()
     }
 
     editar(pedidos:pedido){
@@ -65,6 +66,6 @@ export class AppComponent {
       this.Actualizar = pedidos;
     }
   }
-  
+
 
 
