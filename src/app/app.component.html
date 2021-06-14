@@ -1,0 +1,44 @@
+<h1>Sunshine boutique</h1>
+    <div class="container form-group">
+      <div  *ngIf="editando == false">
+        <p>Agregar pedido</p>
+        <input type="text" [(ngModel)]= "proveedor" placeholder="Nombre del proveedor" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "prenda" placeholder="Tipo de prenda" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "color" placeholder="Color" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "tamaño"  placeholder="Size" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "cantidad" placeholder="Cantidad" class="form-control my-1">
+        <button class="btn btn-info"  id="boton" (click)="guardar()">Guardar</button> <br>
+      </div>
+      <div  *ngIf="editando">
+        <p>Modificar pedido</p>
+        <input type="text" [(ngModel)]= "Actualizar.proveedor" placeholder="Nombre del proveedor" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "Actualizar.prenda" placeholder="Tipo de prenda" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "Actualizar.color" placeholder="Color" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "Actualizar.tamaño" placeholder="Size" class="form-control my-1" >
+        <input type="text" [(ngModel)]= "Actualizar.cantidad" placeholder="Cantidad" class="form-control my-1">
+        <button class="btn btn-info" div  *ngIf="editando" id="boton" (click)="actualizar()">Editar</button> <br>
+      </div>
+    </div>
+    
+    <table class="table table-dark table-striped my-3">
+      <thead>
+        <th>Proveedor</th>
+        <th>Prenda</th>
+        <th>Color</th>
+        <th>Tamaño</th>
+        <th>Cantidad</th>
+      </thead>
+      <tbody id="tabla">
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{pedido.proveedor}}</td>
+          <td>{{pedido.prenda}}</td>
+          <td>{{pedido.color}}</td>
+          <td>{{pedido.tamaño}}</td>
+          <td>{{pedido.cantidad}}</td>
+          <td><button class="btn btn-success" (click)="eliminar(pedido)">Eliminar</button></td>
+          <td><button class="btn btn-success" (click)="editar(pedido)">Editar</button></td>
+        </tr>
+        
+      </tbody>
+    </table>
+   
