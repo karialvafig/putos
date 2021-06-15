@@ -11,12 +11,12 @@
   </div>
   <div *ngIf="editando">
     <p>Modificar pedido</p>
-    <input type="text" [(ngModel)]="Actualizar.proveedor" placeholder="Nombre del proveedor" class="form-control my-1" >
-    <input type="text" [(ngModel)]="Actualizar.prenda" placeholder="Tipo de prenda" class="form-control my-1" >
-    <input type="text" [(ngModel)]="Actualizar.color" placeholder="Color" class="form-control my-1" >
-    <input type="text" [(ngModel)]="Actualizar.tamano" placeholder="Size" class="form-control my-1" >
-    <input type="text" [(ngModel)]="Actualizar.cantidad" placeholder="Cantidad" class="form-control my-1">
-    <button class="btn btn-info" div  *ngIf="editando">Editar</button> <br>
+    <input type="text" [(ngModel)]="proveedor" placeholder="Nombre del proveedor" class="form-control my-1" >
+    <input type="text" [(ngModel)]="prenda" placeholder="Tipo de prenda" class="form-control my-1" >
+    <input type="text" [(ngModel)]="color" placeholder="Color" class="form-control my-1" >
+    <input type="text" [(ngModel)]="tamano" placeholder="Size" class="form-control my-1" >
+    <input type="text" [(ngModel)]="cantidad" placeholder="Cantidad" class="form-control my-1">
+    <button class="btn btn-info" (click)="editarPedido()" *ngIf="editando">Editar</button> <br>
   </div>
 </div>
 
@@ -31,6 +31,7 @@
   <tbody id="tabla">
     <tr *ngFor="let pedido of pedidos">
       <td>{{pedido.id}}</td>
+      <td>{{pedido.proveedor}}</td>
       <td>{{pedido.prenda}}</td>
       <td>{{pedido.color}}</td>
       <td>{{pedido.tamano}}</td>

@@ -25,13 +25,7 @@ export class AppComponent {
   cantidad='';
   pedidos: Array<pedido>=[];
   editando: boolean = false;
-  Actualizar: pedido = {
-    proveedor:"",
-    prenda:"",
-    color:"",
-    tamano:"",
-    cantidad:""
-  };
+  idEditar: string = "";
 
   constructor(private db: AngularFirestore){
     this.db.collection("pedido").snapshotChanges().subscribe(res =>{
@@ -61,9 +55,20 @@ export class AppComponent {
       this.db.collection("pedido").doc(pedido.id).delete()
     }
 
-    editar(pedidos:pedido){
-      this.editando=!this.editar
-      this.Actualizar = pedidos;
+    editar(pedido: pedido){
+      this.editando = !this.editando;
+      this.idEditar = pedido.id || "";
+    }
+
+    editarPedido() {
+      let documentoEditar = {
+        proveedor: this.proveedor,
+        prenda: this.prenda,
+        color: this.color,
+        tamano: this.tamano,
+        cantidad: this.cantidad
+      }
+      this.db.collection("pedido").doc(this.idEditar).set({...documentoEditar}, { merge: true });
     }
   }
 
